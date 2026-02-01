@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class combosystem : MonoBehaviour
 {
+    public static event Action<int,int> OnScoreChange;
     private List<string> bumperTags = new List<string>();   
     private int scoreMultiplier = 1;
     private void Start()
@@ -30,7 +32,7 @@ public class combosystem : MonoBehaviour
         scoremanager.Instance.Addscore(bumperValue * scoreMultiplier);
 
                                                             //print score en multiplier in de console
-        Debug.Log($"Score: {scoremanager.Instance.score} || Multiplier: {scoreMultiplier}X");
+        OnScoreChange?.Invoke(scoremanager.Instance.score, scoreMultiplier);
     }
 }
 
